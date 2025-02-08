@@ -12,13 +12,16 @@ This project is a Flask-based REST API that interacts with a locally hosted Amaz
 
 ## Project Structure
 ```
+|-- dynamo_frontend
 |-- app.py           # Main Flask application
+|-- templates
 |-- index.html       # Frontend UI to interact with API
-|-- Data/            # Directory containing CSV files
+|-- Data/            # Directory containing CSV files. These files are not provided in repository.
 |   |-- df_Products.csv
 |   |-- df_Customers.csv
-|   |-- df_Orders.csv
+|   |-- df_Orders.csv    
 |-- query_time.txt   # Log file for execution time of queries
+|-- index.png        # Frontend image
 ```
 
 ## Setup Instructions
