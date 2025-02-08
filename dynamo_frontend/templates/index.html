@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DynamoDB with Flask</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">DynamoDB with Flask API</h1>
+
+        <!-- Query for All Orders for a Product ID -->
+        <h2>Query Orders for Order ID</h2>
+        <form id="queryProductForm" class="mb-5">
+            <div class="mb-3">
+                <label for="product_id" class="form-label">Order ID</label>
+                <input type="text" class="form-control" id="query_product_id" value="bZFqy2PEMhhc" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="end_date" class="form-label">Order Approved At</label>
+                <input type="datetime-local" class="form-control" id="end_date" value="2018-01-20 20:20:13" required>
+            </div>
+            <button id="queryProductBtn" class="btn btn-success">Query Orders</button>
+        </form>
+
+        <!-- Sort Products by Price -->
+        <h2>Sort Products by product_weight_g</h2>
+        <button id="sortProductsBtn" class="btn btn-info mb-3">Sort Products</button>
+
+        <!-- Filter Orders by Status and Customer -->
+        <h2>Filter Orders by Order ID and Customer</h2>
+        <form id="filterOrdersForm" class="mb-5">
+            <div class="mb-3">
+                <label for="order_id" class="form-label">Order Id</label>
+                <input type="text" class="form-control" id="order_id" value='rPit7nr7uPig' required>
+            </div>
+            <div class="mb-3">
+                <label for="customer_id" class="form-label">Customer ID</label>
+                <input type="text" class="form-control" id="customer_id" value='wkqgAPbUItGl' required>
+            </div>
+            <button id="filterOrdersBtn" class="btn btn-success">Filter Orders</button>
+        </form>
+
+        <!-- Query Orders for a Specific Customer -->
+        <h2>Query Orders for a Specific Customer</h2>
+        <form id="queryCustomerOrdersForm" class="mb-5">
+            <div class="mb-3">
+                <label for="specific_customer_id" class="form-label">Customer ID</label>
+                <input type="text" class="form-control" id="specific_customer_id" value='wkqgAPbUItGl' required>
+            </div>
+            <button id="queryCustomerOrdersBtn" class="btn btn-success">Query Orders</button>
+        </form>
+
+        <!-- Results Section -->
+        <h2 class="mt-5">Results</h2>
+        <pre id="results"></pre>
+    </div>
+
+    <script>
+        // Function to query orders for a specific product ID and date range
+        document.getElementById('queryProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const productID = document.getElementById('query_product_id').value;
+
+            const endDate = document.getElementById('end_date').value;
+
+            fetch(`/query_orders_product?order_id=${productID}&order_approved_at=${endDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        // Function to sort products by price
+        document.getElementById('sortProductsBtn').addEventListener('click', function() {
+            fetch('/sort_products')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        // Function to filter orders by status and customer
+        document.getElementById('filterOrdersForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const orderID = document.getElementById('order_id').value;
+            const customerID = document.getElementById('customer_id').value;
+
+            fetch(`/filter_orders?order_id=${orderID}&customer_id=${customerID}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        // Function to query orders for a specific customer
+        document.getElementById('queryCustomerOrdersForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const customerID = document.getElementById('specific_customer_id').value;
+
+            fetch(`/query_customer_orders?customer_id=${customerID}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

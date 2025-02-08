@@ -1,0 +1,4 @@
+Query Orders for Product ID: 1.0963 seconds
+Sort Products by Product Weightg: 3.6442 seconds
+Filter Orders by Customer and State: 1.0769 seconds
+Filter Orders by Customer ID: 0.9367 seconds

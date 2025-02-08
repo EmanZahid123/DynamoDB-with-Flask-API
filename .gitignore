@@ -1,0 +1,30 @@
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+
+# Ignore log files
+*.log
+
+# Ignore data files (modify if needed)
+*.csv
+*.json
+*.db
+*.sqlite
+Data/.~lock.df_Products.csv#
+
+
+# Ignore PDF files
+*.pdf
+
+
+# Ignore IDE and OS-specific files
+.vscode/
+.idea/
+*.DS_Store
+*.swp
